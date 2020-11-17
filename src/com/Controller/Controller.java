@@ -1,11 +1,15 @@
 package com.Controller;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Controller {
+
+    public Controller() {
+    }
 
     static DatabaseHandler conn = new DatabaseHandler();
 
@@ -43,6 +47,54 @@ public class Controller {
             throwables.printStackTrace();
         }
         return listNama;
+    }
+
+    // INSERT
+    public static boolean insertTemp(String Nama, int Umur) {
+        conn.connect();
+        String query = "INSERT INTO temp VALUES(?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1, Nama);
+            stmt.setInt(2, Umur);
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return (false);
+        }
+    }
+
+    // UPDATE
+    public static boolean updateNama(String Nama, int Umur) {
+        conn.connect();
+        String query = "UPDATE temp SET " +
+                "Nama='" + Nama + "', " +
+                "TempatLahir='" + Umur + "', " +
+                " WHERE Nama='" + Nama + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return (false);
+        }
+    }
+
+    // DELETE
+    public static boolean deleteNama(String Nama) {
+        conn.connect();
+
+        String query = "DELETE FROM temp WHERE Nama='" + Nama + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return (false);
+        }
     }
 
 }

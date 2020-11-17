@@ -8,7 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<String> lsNama = Controller.getNama();
+        Controller controller = new Controller();
+        ArrayList<String> lsNama = controller.getNama();
 
         for (String nama :
                 lsNama) {
