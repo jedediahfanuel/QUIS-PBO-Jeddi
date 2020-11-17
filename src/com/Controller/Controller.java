@@ -29,4 +29,20 @@ public class Controller {
 //        return (listKTP);
 //    }
 
+    public static ArrayList<String> getNama() {
+        ArrayList<String> listNama = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM temp";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                listNama.add(rs.getString("Nama"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return listNama;
+    }
+
 }
