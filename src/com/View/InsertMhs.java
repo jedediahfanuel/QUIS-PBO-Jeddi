@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class InsertMhs implements ActionListener {
 
     JFrame frame =  new JFrame("Insert Mahasiswa");
-    JPanel panel = new JPanel(new GridLayout(8,1,5,5));
+    JPanel panel = new JPanel(new GridLayout(10,1,5,5));
 
     JLabel lblTitle = new JLabel("Insert Insert Mahasiswa");
 
@@ -23,7 +23,7 @@ public class InsertMhs implements ActionListener {
     JTextField angkatanMhs = new JTextField();
 
     JLabel lblJurusan = new JLabel("Jurusan : ");
-    JComboBox pilihJurusan;
+    static JComboBox pilihJurusan;
 
     JButton btnSubmit = new JButton("Submit");
     JButton btnBack = new JButton("Back");
@@ -41,6 +41,16 @@ public class InsertMhs implements ActionListener {
 
         btnSubmit.setActionCommand("Submit");
         btnSubmit.addActionListener(this);
+
+        btnSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String stringJurusan = String.valueOf(pilihJurusan.getSelectedItem());
+                Controller.insertMahasiswa(namaMhs.getText(), Integer.parseInt(angkatanMhs.getText()), stringJurusan);
+                new MainMenu();
+                frame.dispose();
+            }
+        });
 
         btnBack.setActionCommand("Back");
         btnBack.addActionListener(this);
@@ -66,12 +76,12 @@ public class InsertMhs implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
-            case "Submit":
-                String stringJurusan = String.valueOf(pilihJurusan.getSelectedItem());
-                Controller.insertMahasiswa(namaMhs.getText(), Integer.parseInt(angkatanMhs.getText()), stringJurusan);
-                new MainMenu();
-                frame.dispose();
-                break;
+//            case "Submit":
+//                String stringJurusan = String.valueOf(pilihJurusan.getSelectedItem());
+//                Controller.insertMahasiswa(namaMhs.getText(), Integer.parseInt(angkatanMhs.getText()), stringJurusan);
+//                new MainMenu();
+//                frame.dispose();
+//                break;
             case "Back":
                 new MainMenu();
                 frame.dispose();

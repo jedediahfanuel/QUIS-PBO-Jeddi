@@ -9,37 +9,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ShowJrs  implements ActionListener {
-
-    JFrame frame =  new JFrame("Show Jurusan");
-    JPanel panel = new JPanel(new GridLayout());
+public class JurusanView implements ActionListener {
+    JFrame frame =  new JFrame("Show Mahasiswa");
+    JPanel panel = new JPanel(new GridLayout(5, 1, 5, 5));
 
     JTable tabelJurusan;
-    String[] columnNames = {"Kode Jurusan", "Nama Jurusan"};
+    String[] columnNames = {"Nama Mahasiswa", "Angkatan", "Jurusan"};
 
+    JLabel lblJurusan = new JLabel("Jurusan : ");
+    static JComboBox pilihJurusan;
+
+    JButton btnSubmit = new JButton("Submit");
     JButton btnBack = new JButton("Back");
 
-    public ShowJrs() {
-
-        // Get from database
-        ArrayList<Jurusan> listJurusan = new ArrayList<>();
-        listJurusan = Controller.getJurusan();
-        String[][] data = new String[listJurusan.size()][2];
-
-        // Add data to tabel
-        for (int i = 0; i < listJurusan.size(); i++) {
-            data [i][0] = listJurusan.get(i).getKode();
-            data [i][1] = listJurusan.get(i).getNama();
-        }
-
-        tabelJurusan = new JTable(data, columnNames);
-
-        JScrollPane sp = new JScrollPane(tabelJurusan);
-        panel.add(sp);
-
+    public JurusanView() {
         btnBack.setActionCommand("Back");
         btnBack.addActionListener(this);
 
+        ArrayList<Jurusan> listJurusan = new ArrayList<>();
+        listJurusan = Controller.getJurusan();
+        String[] jurusan = new String[listJurusan.size()];
+
+        for (int i = 0; i < listJurusan.size(); i++) {
+            jurusan[i] = listJurusan.get(i).getKode();
+        }
+        JComboBox pilihJurusan = new JComboBox(jurusan);
+
+        panel.add(lblJurusan);
+        panel.add(pilihJurusan);
+        panel.add(btnSubmit);
         panel.add(btnBack);
 
         frame.setSize(1280,720);
@@ -53,6 +51,10 @@ public class ShowJrs  implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
+            case "Submit":
+                String stringJurusan = String.valueOf(pilihJurusan.getSelectedItem());
+//                new ShowMhs(stringJurusan);
+                frame.dispose();
             case "Back":
                 new MainMenu();
                 frame.dispose();

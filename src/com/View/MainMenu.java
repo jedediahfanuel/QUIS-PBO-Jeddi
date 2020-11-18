@@ -60,6 +60,7 @@ public class MainMenu implements ActionListener {
                 break;
             case "ShowMhs":
                 new ShowMhs();
+//                new JurusanView();
                 frame.dispose();
                 break;
             default:

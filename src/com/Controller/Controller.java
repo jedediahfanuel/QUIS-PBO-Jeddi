@@ -58,7 +58,7 @@ public class Controller {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1, nama);
             stmt.setInt(2, angkatan);
-            stmt.setString(1, jurusan);
+            stmt.setString(3, jurusan);
             stmt.executeUpdate();
             return (true);
         } catch (SQLException throwables) {
@@ -78,7 +78,7 @@ public class Controller {
                 Mahasiswa m = new Mahasiswa();
                 m.setNama(rs.getString("nama"));
                 m.setAngkatan(rs.getInt("angkatan"));
-                m.setNama(rs.getString("kodeJurusan"));
+                m.setKodeJurusan(rs.getString("kodeJurusan"));
                 listMahasiswa.add(m);
             }
         } catch (SQLException throwables) {
